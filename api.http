@@ -2,8 +2,26 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "Unite Summit",
-    "details": "Um evento para um novato na programação",
-    "maximumAttendees": 100
+    "title": "Avine",
+    "details": "nteste",
+    "maximumAttendees": 2
     
 }
+
+###
+
+POST http://localhost:3333/events/548cf5d4-4eef-4218-9831-624046185dd4/attendees
+Content-Type: application/json
+
+{
+    "name": "Carlos Daniel",
+    "email": "gmssaldanha12@iclod.com"
+}
+
+###
+
+GET  http://localhost:3333/events/548cf5d4-4eef-4218-9831-624046185dd4
+
+###
+
+GET http://localhost:3333/attendees/4/badge
