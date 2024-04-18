@@ -2,7 +2,6 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { promise, z } from "zod";
 import { prisma } from "../lib/prisma";
-import { error } from "console";
 
 
 export async function registerForEvent(app: FastifyInstance){
@@ -10,6 +9,8 @@ export async function registerForEvent(app: FastifyInstance){
     .withTypeProvider<ZodTypeProvider>()
     .post('/events/:eventId/attendees', {
         schema: {
+            summary: 'register an Attendee',
+            tags: ['attendees'],
             body: z.object({
                 name: z.string().min(4),
                 email: z.string().email(),

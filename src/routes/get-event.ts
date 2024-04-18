@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../lib/prisma";
-import { title } from "process";
+
 
 export async function getEvent(app: FastifyInstance){
     app
@@ -10,24 +10,28 @@ export async function getEvent(app: FastifyInstance){
     .get('/events/:eventId', {
 
         schema: {
+            summary: 'get an event',
+            tags: ['events'],
             params: z.object({
                 eventId: z.string().uuid(),
             }),
+
             response: {
-                200:{
+                200: z.object({
                     event: z.object({
                         id: z.string().uuid(),
                         title: z.string(),
-                        slug: z.string(), 
-                        details: z.string().nullable(), 
-                        maximumAttendees: z.number().int().nullable(), 
-                        attendeesAmount: z.number().int(), 
+                        slug: z.string(),
+                        details: z.string().nullable(),
+                        maximumAttendees: z.number().int().nullable(),
+                        attendeesAmount: z.number().int(),
                     })
-                },
+                })
             },
         }
     }, async (request, reply) => {
         const { eventId } = request.params
+
 
         const event = await prisma.event.findUnique({
             select: {
@@ -36,12 +40,11 @@ export async function getEvent(app: FastifyInstance){
                 slug: true,
                 details: true,
                 maximumAttendees: true,
-
                 _count: {
-                    select:{
+                    select: {
                         Attendee: true,
                     }
-                }
+                },             
             },
 
             where: {
@@ -61,7 +64,7 @@ export async function getEvent(app: FastifyInstance){
                 details: event.details,
                 maximumAttendees: event.maximumAttendees,
                 attendeesAmount: event._count.Attendee,
-            },
+            } 
         })
     })
 }

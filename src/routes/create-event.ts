@@ -1,5 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod"
-import { z } from "zod"
+import { Schema, z } from "zod"
 import { generateSlug } from "../utils/generete-slug"
 import { prisma } from "../lib/prisma"
 import { FastifyInstance } from "fastify"
@@ -10,6 +10,8 @@ export async function createEvent(app: FastifyInstance) {
         .withTypeProvider<ZodTypeProvider>()
         .post('/events', {
             schema: {
+                summary: 'create an event',
+                tags: ['events'],
                 body: z.object({
                     title: z.string().min(4),
                     details: z.string().nullable(),

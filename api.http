@@ -2,26 +2,34 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "Avine",
-    "details": "nteste",
+    "title": "quebrando cabeca",
+    "details": "teste pratico back-end",
     "maximumAttendees": 2
     
 }
 
 ###
 
-POST http://localhost:3333/events/548cf5d4-4eef-4218-9831-624046185dd4/attendees
+POST http://localhost:3333/events/c94ea916-c511-4843-9c21-4eb5c768efa7/attendees
 Content-Type: application/json
 
 {
-    "name": "Carlos Daniel",
-    "email": "gmssaldanha12@iclod.com"
+    "name": "Guilherme Marques",
+    "email": "gms.saldanha@icloud.com"
 }
 
 ###
 
-GET  http://localhost:3333/events/548cf5d4-4eef-4218-9831-624046185dd4
+GET  http://localhost:3333/events/c94ea916-c511-4843-9c21-4eb5c768efa7
 
 ###
 
-GET http://localhost:3333/attendees/4/badge
+GET http://localhost:3333/attendees/9/badge
+
+###
+
+GET http://localhost:3333/attendees/9/check-in
+
+###
+
+GET  http://localhost:3333/events/c94ea916-c511-4843-9c21-4eb5c768efa7/attendees?query=guilherme
